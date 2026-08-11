@@ -21,6 +21,7 @@ public class RefundResponse {
     private Integer amount;
     /**
      * 退款状态
+     *
      * @see RefundStatus
      */
     private Integer status;
@@ -29,13 +30,15 @@ public class RefundResponse {
 
     private String msg;
 
-    public boolean refundSuccess(){
+    public boolean refundSuccess() {
         return RefundStatus.SUCCESS.equalsValue(status);
     }
-    public boolean refunding(){
+
+    public boolean refunding() {
         return RefundStatus.UN_KNOWN.equalsValue(status);
     }
-    public boolean refundFailed(){
+
+    public boolean refundFailed() {
         return RefundStatus.FAILED.equalsValue(status);
     }
 }

@@ -12,8 +12,8 @@ import java.util.List;
  * 课程信息
  *
  * @author wusongsong
- * @since 2022/8/5 16:54
  * @version 1.0.0
+ * @since 2022/8/5 16:54
  **/
 @Data
 @ApiModel(description = "课程详细信息，包含课程、目录、教师")
@@ -42,8 +42,9 @@ public class CourseFullInfoDTO {
     private List<CatalogueDTO> chapters;
     @ApiModelProperty("老师列表")
     private List<Long> teacherIds;
+
     @JsonIgnore
-    public List<Long> getCategoryIds(){
+    public List<Long> getCategoryIds() {
         return List.of(firstCateId, secondCateId, thirdCateId);
     }
 }

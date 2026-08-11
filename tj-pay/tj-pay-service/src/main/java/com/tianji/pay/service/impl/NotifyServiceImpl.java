@@ -195,7 +195,7 @@ public class NotifyServiceImpl implements INotifyService {
                 .eq(RefundOrder::getId, refundOrder.getId())
                 .eq(RefundOrder::getStatus, refundOrder.getStatus())
                 .update();
-        if(!success){
+        if (!success) {
             return null;
         }
         return refundOrder;

@@ -13,10 +13,12 @@ import java.util.List;
 public interface PayClient {
     /**
      * 查询支付渠道
+     *
      * @return 支付渠道列表
      */
     @GetMapping("/pay-channels/list")
     List<PayChannelDTO> listAllPayChannels();
+
     /**
      * 扫码支付申请支付单，返回支付url地址，用于生产二维码
      *

@@ -8,9 +8,10 @@ import lombok.NoArgsConstructor;
 
 /**
  * 课程支付相关信息 课程状态
+ *
  * @author wusongsong
- * @since 2022/7/26 20:41
  * @version 1.0.0
+ * @since 2022/7/26 20:41
  **/
 @Data
 @ApiModel("课程购买信息")

@@ -51,8 +51,7 @@ public class WxConfiguration {
         // 2.初始化
         WechatPayHttpClientBuilder builder = WechatPayHttpClientBuilder.create()
                 .withMerchant(properties.getMchId(), properties.getMchSerialNo(), privateKey)
-                .withValidator(new WechatPay2Validator(certificatesManager.getVerifier(properties.getMchId())))
-                ;
+                .withValidator(new WechatPay2Validator(certificatesManager.getVerifier(properties.getMchId())));
 
         // 3.构建
         return builder.build();

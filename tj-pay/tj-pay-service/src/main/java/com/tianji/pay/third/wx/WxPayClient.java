@@ -70,7 +70,7 @@ public class WxPayClient {
             // 1.构建请求路径
             URIBuilder uriBuilder = new URIBuilder(requestPath);
             // 2.构建请求参数
-            if(withMch) {
+            if (withMch) {
                 uriBuilder.addParameter("mchid", mchId);
             }
             if (params != null && params.length > 0) {
@@ -93,13 +93,13 @@ public class WxPayClient {
 
     public ObjectNode baseParam(boolean withApp, boolean withMch, Boolean isRefund) {
         ObjectNode objectNode = objectMapper.createObjectNode();
-        if(withApp){
+        if (withApp) {
             objectNode.put("appid", appId);
         }
-        if(withMch) {
-                objectNode.put("mchid", mchId);
+        if (withMch) {
+            objectNode.put("mchid", mchId);
         }
-        if(isRefund != null) {
+        if (isRefund != null) {
             String notifyPath = isRefund ? "/notify/refund/" : "/notify/";
             objectNode.put("notify_url",
                     payProperties.getNotifyHost() + notifyPath + PayConstants.WX_CHANNEL_CODE);

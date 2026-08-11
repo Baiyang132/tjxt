@@ -31,13 +31,13 @@ public class PayChannelController {
 
     @ApiOperation("查询支付渠道列表")
     @GetMapping("/list")
-    public List<PayChannelDTO> listAllPayChannels(){
+    public List<PayChannelDTO> listAllPayChannels() {
         return BeanUtils.copyList(channelService.list(), PayChannelDTO.class);
     }
 
     @ApiOperation("添加支付渠道")
     @PostMapping
-    public Long addPayChannel(@Valid @RequestBody PayChannelDTO channelDTO){
+    public Long addPayChannel(@Valid @RequestBody PayChannelDTO channelDTO) {
         return channelService.addPayChannel(channelDTO);
     }
 
@@ -45,7 +45,7 @@ public class PayChannelController {
     @PutMapping("/{id}")
     public void updatePayChannel(
             @ApiParam("支付渠道id") @PathVariable("id") Long id,
-            @RequestBody PayChannelDTO channelDTO){
+            @RequestBody PayChannelDTO channelDTO) {
         channelDTO.setId(id);
         channelService.updatePayChannel(channelDTO);
     }

@@ -9,8 +9,8 @@ import java.util.List;
 
 /**
  * @author wusongsong
- * @since 2022/7/27 14:32
  * @version 1.0.0
+ * @since 2022/7/27 14:32
  **/
 @Data
 public class CourseSimpleInfoDTO {
@@ -38,8 +38,9 @@ public class CourseSimpleInfoDTO {
     private LocalDateTime purchaseEndTime;
     @ApiModelProperty("课程学习有效期，单位：月")
     private Integer validDuration;
+
     @JsonIgnore
-    public List<Long> getCategoryIds(){
+    public List<Long> getCategoryIds() {
         return List.of(firstCateId, secondCateId, thirdCateId);
     }
 }

@@ -62,7 +62,6 @@ public class AliPayService implements IPayService {
     }
 
 
-
     @Override
     public PayStatusResponse queryPayOrderStatus(String payOrderNo) {
         // 1.发起请求
@@ -83,11 +82,11 @@ public class AliPayService implements IPayService {
         LocalDateTime successTime = StringUtils.isBlank(success_time) ?
                 LocalDateTime.now() : DateUtils.parse(success_time, DateUtils.DEFAULT_DATE_TIME_FORMAT);
         return PayStatusResponse.builder().success(true)
-                        .payStatus(PayStatus.valueOf(response.getTradeStatus()).getValue())
-                        .payOrderNo(response.getOutTradeNo())
-                        .totalAmount(transferStringAmount2Int(response.getTotalAmount()))
-                        .successTime(successTime)
-                        .build();
+                .payStatus(PayStatus.valueOf(response.getTradeStatus()).getValue())
+                .payOrderNo(response.getOutTradeNo())
+                .totalAmount(transferStringAmount2Int(response.getTotalAmount()))
+                .successTime(successTime)
+                .build();
     }
 
     @Override
@@ -115,7 +114,7 @@ public class AliPayService implements IPayService {
         boolean success = StringUtils.equals(response.getFundChange(), "Y");
         return RefundResponse.builder()
                 .success(true)
-                .status(success ? RefundStatus.SUCCESS.getValue(): RefundStatus.UN_KNOWN.getValue())
+                .status(success ? RefundStatus.SUCCESS.getValue() : RefundStatus.UN_KNOWN.getValue())
                 .channel(hasDetail ? null : refundDetailItemList.get(0).fundChannel)
                 .amount(hasDetail ? null : transferStringAmount2Int(refundDetailItemList.get(0).getAmount()))
                 .build();
@@ -153,6 +152,7 @@ public class AliPayService implements IPayService {
     public static int transferStringAmount2Int(String totalAmount) {
         return new BigDecimal(totalAmount).multiply(BigDecimal.valueOf(100)).intValue();
     }
+
     public static String transferAmount2String(Integer amount) {
         BigDecimal b = new BigDecimal(amount);
         BigDecimal result = b.divide(new BigDecimal(100), new MathContext(2, RoundingMode.HALF_UP));

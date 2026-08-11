@@ -31,8 +31,8 @@ public class PayOrderController {
 
     @ApiOperation("扫码支付申请支付单，返回支付url地址，用于生产二维码")
     @PostMapping
-    public String applyPayOrder(@RequestBody PayApplyDTO payApplyDTO){
-        if(!PayType.NATIVE.equalsValue(payApplyDTO.getPayType())){
+    public String applyPayOrder(@RequestBody PayApplyDTO payApplyDTO) {
+        if (!PayType.NATIVE.equalsValue(payApplyDTO.getPayType())) {
             throw new BadRequestException(PayErrorInfo.INVALID_PAY_TYPE);
         }
         return payOrderService.applyPayOrder(payApplyDTO);
@@ -42,7 +42,7 @@ public class PayOrderController {
     @GetMapping("/{bizOrderId}/status")
     public PayResultDTO queryPayResult(
             @ApiParam("业务订单id") @PathVariable("bizOrderId") Long bizOrderId
-    ){
+    ) {
         return payOrderService.queryPayResult(bizOrderId);
     }
 }

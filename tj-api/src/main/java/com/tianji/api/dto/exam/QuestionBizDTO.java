@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @AllArgsConstructor(staticName = "of")
 @NoArgsConstructor
-public class QuestionBizDTO{
+public class QuestionBizDTO {
 
     @ApiModelProperty("业务id，要关联问题的某业务id，例如小节id")
     private Long bizId;

@@ -7,10 +7,10 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * @ClassName CategoryDTO
  * @author wusongsong
- * @since 2022/7/21 14:51
  * @version 1.0.0
+ * @ClassName CategoryDTO
+ * @since 2022/7/21 14:51
  **/
 @Data
 @ApiModel("课程分类")

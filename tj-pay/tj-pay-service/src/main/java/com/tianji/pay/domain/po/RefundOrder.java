@@ -130,19 +130,19 @@ public class RefundOrder implements Serializable {
     private Boolean deleted;
 
 
-    public boolean success(){
+    public boolean success() {
         return RefundStatus.SUCCESS.equalsValue(status);
     }
 
-    public boolean failed(){
+    public boolean failed() {
         return RefundStatus.FAILED.equalsValue(status);
     }
 
-    public boolean unknown(){
+    public boolean unknown() {
         return RefundStatus.UN_KNOWN.equalsValue(status);
     }
 
-    public boolean notCommit(){
+    public boolean notCommit() {
         return RefundStatus.NOT_COMMIT.equalsValue(status);
     }
 }

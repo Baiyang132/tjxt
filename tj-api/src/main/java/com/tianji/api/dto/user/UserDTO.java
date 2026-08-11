@@ -21,7 +21,7 @@ public class UserDTO {
     @ApiModelProperty(value = "用户名称/昵称", example = "李四")
     private String name;
     @ApiModelProperty(value = "用户类型，1-其他员工,2-普通学员，3-老师", example = "2")
-    @EnumValid(enumeration = {1,2,3}, message = "用户类型错误")
+    @EnumValid(enumeration = {1, 2, 3}, message = "用户类型错误")
     @NotNull
     private Integer type;
     @ApiModelProperty(value = "角色id，老师和学生不用填", example = "5")

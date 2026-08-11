@@ -15,7 +15,7 @@ public enum PayChannel {
         this.desc = desc;
     }
 
-    public static String desc(String value){
+    public static String desc(String value) {
         if (StringUtils.isBlank(value)) {
             return "";
         }

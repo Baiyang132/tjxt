@@ -13,6 +13,7 @@ public interface CourseClient {
 
     /**
      * 根据老师id列表获取老师出题数据和讲课数据
+     *
      * @param teacherIds 老师id列表
      * @return 老师id和老师对应的出题数和教课数
      */
@@ -48,6 +49,7 @@ public interface CourseClient {
 
     /**
      * 根据课程id集合查询课程简单信息
+     *
      * @param ids id集合
      * @return 课程简单信息的列表
      */
@@ -56,6 +58,7 @@ public interface CourseClient {
 
     /**
      * 根据课程id，获取课程、目录、教师信息
+     *
      * @param id 课程id
      * @return 课程信息、目录信息、教师信息
      */

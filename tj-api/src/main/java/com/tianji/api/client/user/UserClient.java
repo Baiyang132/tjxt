@@ -15,6 +15,7 @@ public interface UserClient {
 
     /**
      * 根据手机号查询用户id
+     *
      * @param phone 手机号
      * @return 用户id
      */
@@ -23,8 +24,9 @@ public interface UserClient {
 
     /**
      * 登录接口
+     *
      * @param loginDTO 登录信息
-     * @param isStaff 是否是员工
+     * @param isStaff  是否是员工
      * @return 用户详情
      */
     @PostMapping("/users/detail/{isStaff}")
@@ -32,6 +34,7 @@ public interface UserClient {
 
     /**
      * 查询用户类型
+     *
      * @param id 用户id
      * @return 用户类型，0-普通学员，1-老师，2-其他员工
      */
@@ -40,6 +43,7 @@ public interface UserClient {
 
     /**
      * <h1>根据id批量查询用户信息</h1>
+     *
      * @param ids 用户id集合
      * @return 用户集合
      */
@@ -49,6 +53,7 @@ public interface UserClient {
 
     /**
      * 根据id查询单个学生信息
+     *
      * @param id 用户id
      * @return 学生
      */

@@ -3,7 +3,6 @@ package com.tianji.learning.domain.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.tianji.learning.enums.LessonStatus;
 import com.tianji.learning.enums.PlanStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,21 +13,17 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 学生课程表
+ * 学习计划表
  * </p>
  *
  * @author 虎哥
-<<<<<<< Updated upstream
- * @since 2022-12-02
-=======
  * @since 2022-06-30
->>>>>>> Stashed changes
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("learning_lesson")
-public class LearningLesson implements Serializable {
+@TableName("learning_plan")
+public class LearningPlan implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -39,11 +34,7 @@ public class LearningLesson implements Serializable {
     private Long id;
 
     /**
-<<<<<<< Updated upstream
-     * 学员id
-=======
      * 学生id
->>>>>>> Stashed changes
      */
     private Long userId;
 
@@ -53,38 +44,29 @@ public class LearningLesson implements Serializable {
     private Long courseId;
 
     /**
-     * 课程状态，0-未学习，1-学习中，2-已学完，3-已失效
-     */
-    private LessonStatus status;
-
-    /**
-<<<<<<< Updated upstream
-     * 每周学习频率，每周3天，每天2节，则频率为6
-=======
-     * 学习计划每周学习天数
->>>>>>> Stashed changes
+     * 计划每周学习天数（1-7）
      */
     private Integer weekFreq;
 
     /**
-     * 学习计划状态，0-没有计划，1-计划进行中
+     * 计划状态，0-没有计划，1-计划进行中
      */
     private PlanStatus planStatus;
 
     /**
-     * 已学习小节数量
+     * 本周已学习天数
      */
-    private Integer learnedSections;
+    private Integer weekLearned;
 
     /**
-     * 最近一次学习的小节id
+     * 每周计划完成的小节数
      */
-    private Long latestSectionId;
+    private Integer weekPlan;
 
     /**
-     * 最近一次学习的时间
+     * 本周学习完成情况
      */
-    private LocalDateTime latestLearnTime;
+    private Boolean weekFinished;
 
     /**
      * 创建时间
@@ -92,21 +74,7 @@ public class LearningLesson implements Serializable {
     private LocalDateTime createTime;
 
     /**
-<<<<<<< Updated upstream
-     * 过期时间
-=======
-     * 过期时间，null代表永久有效
->>>>>>> Stashed changes
-     */
-    private LocalDateTime expireTime;
-
-    /**
      * 更新时间
      */
     private LocalDateTime updateTime;
-<<<<<<< Updated upstream
-
-
-=======
->>>>>>> Stashed changes
 }

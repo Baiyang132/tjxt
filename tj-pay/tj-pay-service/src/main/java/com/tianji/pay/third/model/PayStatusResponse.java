@@ -27,6 +27,7 @@ public class PayStatusResponse {
     private String payOrderNo;
     /**
      * 支付状态：参考:
+     *
      * @see PayStatus
      */
     private Integer payStatus;

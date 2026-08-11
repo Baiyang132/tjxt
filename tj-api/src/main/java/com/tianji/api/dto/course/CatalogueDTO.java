@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * @author wusongsong
- * @since 2022/7/11 16:42
  * @version 1.0.0
+ * @since 2022/7/11 16:42
  **/
 @Data
 @ApiModel(description = "课程目录")

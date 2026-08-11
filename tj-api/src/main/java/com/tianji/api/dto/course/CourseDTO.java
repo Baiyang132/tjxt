@@ -38,7 +38,7 @@ public class CourseDTO {
     @ApiModelProperty("章节数")
     private Integer sections;
     @ApiModelProperty("课程状态")
-    private  Byte status;
+    private Byte status;
     @ApiModelProperty("老师id")
     private Long teacher;
     @ApiModelProperty("课程类型，1：直播课程，2：录播课程")

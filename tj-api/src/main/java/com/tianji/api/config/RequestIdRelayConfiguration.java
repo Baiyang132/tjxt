@@ -14,7 +14,7 @@ import static com.tianji.common.constants.Constant.*;
 public class RequestIdRelayConfiguration {
 
     @Bean
-    public RequestInterceptor requestIdInterceptor(){
+    public RequestInterceptor requestIdInterceptor() {
         return template -> template
                 .header(REQUEST_ID_HEADER, MDC.get(REQUEST_ID_HEADER))
                 .header(REQUEST_FROM_HEADER, FEIGN_ORIGIN_NAME);

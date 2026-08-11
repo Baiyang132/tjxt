@@ -8,10 +8,11 @@ import java.time.LocalDateTime;
 
 /**
  * 课程信息
- * @ClassName CourseDTO
+ *
  * @author wusongsong
- * @since 2022/7/18 13:12
  * @version 1.0.0
+ * @ClassName CourseDTO
+ * @since 2022/7/18 13:12
  **/
 @ApiModel(description = "课程信息")
 @Data

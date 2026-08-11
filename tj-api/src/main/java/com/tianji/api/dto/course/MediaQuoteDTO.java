@@ -7,10 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @ClassName MediaQuoteDTO
  * @author wusongsong
- * @since 2022/7/18 17:43
  * @version 1.0.0
+ * @ClassName MediaQuoteDTO
+ * @since 2022/7/18 17:43
  **/
 @ApiModel("媒资被引用情况")
 @Data

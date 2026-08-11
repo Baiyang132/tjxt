@@ -69,7 +69,7 @@ public class WxPayService implements IPayService {
         String message = result.getStr("message");
         LocalDateTime successTime = result.getLocalDateTime("success_time", LocalDateTime.now());
         // 3.1.请求异常
-        if(StringUtils.isNotBlank(code)){
+        if (StringUtils.isNotBlank(code)) {
             return PayStatusResponse.builder().success(false).code(code).msg(message).build();
         }
         // 3.2.请求成功
@@ -104,7 +104,7 @@ public class WxPayService implements IPayService {
         String code = result.getStr("code");
         String message = result.getStr("message");
         // 4.1.请求异常
-        if(StringUtils.isNotBlank(code)){
+        if (StringUtils.isNotBlank(code)) {
             return RefundResponse.builder().success(false).code(code).msg(message).build();
         }
         // 4.2.请求成功
@@ -129,7 +129,7 @@ public class WxPayService implements IPayService {
         String code = result.getStr("code");
         String message = result.getStr("message");
         // 3.1.请求异常
-        if(StringUtils.isNotBlank(code)){
+        if (StringUtils.isNotBlank(code)) {
             return RefundResponse.builder().success(false).code(code).msg(message).build();
         }
         // 3.2.请求成功

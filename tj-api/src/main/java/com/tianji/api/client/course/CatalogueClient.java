@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(contextId = "catalogue", value = "course-service",path = "catalogues")
+@FeignClient(contextId = "catalogue", value = "course-service", path = "catalogues")
 public interface CatalogueClient {
 
     /**

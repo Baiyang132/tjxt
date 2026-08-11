@@ -6,6 +6,12 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import com.tianji.common.enums.BaseEnum;
 import lombok.Getter;
 
+<<<<<<< Updated upstream
+=======
+/**
+ * 小节类型
+ */
+>>>>>>> Stashed changes
 @Getter
 public enum SectionType implements BaseEnum {
     VIDEO(1, "视频"),
@@ -21,15 +27,24 @@ public enum SectionType implements BaseEnum {
         this.desc = desc;
     }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static SectionType of(Integer value){
         if (value == null) {
             return null;
         }
+<<<<<<< Updated upstream
         for (SectionType status : values()) {
             if (status.equalsValue(value)) {
                 return status;
+=======
+        for (SectionType type : values()) {
+            if (type.equalsValue(value)) {
+                return type;
+>>>>>>> Stashed changes
             }
         }
         return null;
