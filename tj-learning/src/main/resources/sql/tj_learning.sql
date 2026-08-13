@@ -20,6 +20,7 @@ CREATE TABLE learning_lesson (
   `learned_sections`  INT         NOT NULL DEFAULT 0       COMMENT '已学习的小节数',
   `latest_section_id` BIGINT      DEFAULT NULL             COMMENT '最近学习的小节id',
   `latest_learn_time` DATETIME    DEFAULT NULL             COMMENT '最近学习时间',
+  `finish_time`       DATETIME    DEFAULT NULL             COMMENT '完成学习的时间',
   `create_time`       DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间（报名时间）',
   `expire_time`       DATETIME    DEFAULT NULL             COMMENT '课程过期时间，NULL代表永久有效',
   `update_time`       DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',

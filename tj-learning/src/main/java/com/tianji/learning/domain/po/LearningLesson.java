@@ -75,6 +75,11 @@ public class LearningLesson implements Serializable {
     private LocalDateTime latestLearnTime;
 
     /**
+     * 完成学习的时间
+     */
+    private LocalDateTime finishTime;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;
