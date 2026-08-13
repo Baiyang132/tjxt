@@ -42,21 +42,12 @@ public class LearningLessonVO {
     @ApiModelProperty("课程过期时间，如果为null代表课程永久有效")
     private LocalDateTime expireTime;
 
-<<<<<<< Updated upstream
     @ApiModelProperty("计划的学习频率")
     private Integer weekFreq;
 
     @ApiModelProperty("习计划状态，0-没有计划，1-计划进行中")
     private PlanStatus planStatus;
 
-=======
-    @ApiModelProperty("习计划状态，0-没有计划，1-计划进行中")
-    private PlanStatus planStatus;
-
-    @ApiModelProperty("计划的学习频率")
-    private Integer weekFreq;
-
->>>>>>> Stashed changes
     @ApiModelProperty("最近学习的小节名")
     private String latestSectionName;
 

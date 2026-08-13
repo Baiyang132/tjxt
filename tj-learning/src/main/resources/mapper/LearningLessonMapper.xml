@@ -2,19 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tianji.learning.mapper.LearningLessonMapper">
 
-<<<<<<< Updated upstream
     <select id="queryTotalPlan" resultType="java.lang.Integer">
         SELECT SUM(week_freq)
         FROM learning_lesson
         WHERE user_id = #{userId}
         AND plan_status = 1 AND status IN (0, 1)
-=======
-    <!-- 分页查询我的课表：按最近学习时间倒序，未学习过的课表按报名时间兜底 -->
-    <select id="queryMyLessonsPage" resultType="com.tianji.learning.domain.po.LearningLesson">
-        SELECT *
-        FROM learning_lesson
-        WHERE user_id = #{userId}
-        ORDER BY IFNULL(latest_learn_time, create_time) DESC
->>>>>>> Stashed changes
     </select>
 </mapper>

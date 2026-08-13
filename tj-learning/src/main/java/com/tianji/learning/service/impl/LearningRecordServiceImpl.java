@@ -1,7 +1,6 @@
 package com.tianji.learning.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-<<<<<<< Updated upstream
 import com.tianji.api.client.course.CourseClient;
 import com.tianji.api.dto.course.CourseFullInfoDTO;
 import com.tianji.api.dto.leanring.LearningLessonDTO;
@@ -11,36 +10,18 @@ import com.tianji.common.exceptions.DbException;
 import com.tianji.common.utils.BeanUtils;
 import com.tianji.common.utils.UserContext;
 import com.tianji.learning.domain.dto.LearningRecordFormDTO;
-=======
-import com.tianji.api.dto.leanring.LearningRecordFormDTO;
-import com.tianji.common.exceptions.BadRequestException;
-import com.tianji.common.utils.BooleanUtils;
-import com.tianji.common.utils.UserContext;
->>>>>>> Stashed changes
 import com.tianji.learning.domain.po.LearningLesson;
 import com.tianji.learning.domain.po.LearningRecord;
 import com.tianji.learning.enums.LessonStatus;
 import com.tianji.learning.enums.SectionType;
 import com.tianji.learning.mapper.LearningRecordMapper;
 import com.tianji.learning.service.ILearningLessonService;
-<<<<<<< Updated upstream
 import com.tianji.learning.service.ILearningRecordService;
 import com.tianji.learning.utils.LearningRecordDelayTaskHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-=======
-import com.tianji.learning.service.ILearningPlanService;
-import com.tianji.learning.service.ILearningRecordService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
->>>>>>> Stashed changes
 import java.util.List;
 
 /**
@@ -49,7 +30,6 @@ import java.util.List;
  * </p>
  *
  * @author 虎哥
-<<<<<<< Updated upstream
  * @since 2022-12-10
  */
 @Service
@@ -202,173 +182,5 @@ public class LearningRecordServiceImpl extends ServiceImpl<LearningRecordMapper,
             throw new DbException("新增考试记录失败！");
         }
         return true;
-=======
- * @since 2022-06-30
- */
-@Slf4j
-@Service
-@RequiredArgsConstructor
-public class LearningRecordServiceImpl extends ServiceImpl<LearningRecordMapper, LearningRecord>
-        implements ILearningRecordService {
-
-    private final ILearningLessonService lessonService;
-    private final ILearningPlanService planService;
-
-    @Override
-    @Transactional
-    public void submitLearningRecord(LearningRecordFormDTO formDTO) {
-        // 1.校验参数
-        Long lessonId = formDTO.getLessonId();
-        if (lessonId == null) {
-            throw new BadRequestException("课表id不能为空");
-        }
-        Long sectionId = formDTO.getSectionId();
-        if (sectionId == null) {
-            throw new BadRequestException("小节id不能为空");
-        }
-        Long userId = UserContext.getUser();
-        // 2.查询课表并校验
-        LearningLesson lesson = lessonService.getById(lessonId);
-        if (lesson == null) {
-            throw new BadRequestException("课表不存在");
-        }
-        if (!lesson.getUserId().equals(userId)) {
-            throw new BadRequestException("无权学习该课程");
-        }
-        if (lesson.getStatus() == LessonStatus.EXPIRED) {
-            throw new BadRequestException("课程已过期，无法继续学习");
-        }
-        // 3.查询学习记录
-        LearningRecord record = queryRecord(lessonId, sectionId);
-        // 4.已完成的记录直接返回，避免重复处理
-        if (record != null && BooleanUtils.isTrue(record.getFinished())) {
-            return;
-        }
-        // 5.判断本次学习是否完成
-        boolean finished = isFinished(formDTO, record);
-        // 6.写入学习记录
-        if (record == null) {
-            // 6.1.新增记录
-            LearningRecord newRecord = new LearningRecord();
-            newRecord.setLessonId(lessonId);
-            newRecord.setSectionId(sectionId);
-            newRecord.setUserId(userId);
-            newRecord.setMoment(formDTO.getMoment());
-            newRecord.setFinished(finished);
-            if (finished) {
-                newRecord.setFinishTime(LocalDateTime.now());
-            }
-            try {
-                save(newRecord);
-            } catch (DuplicateKeyException e) {
-                // 6.2.并发重复插入，降级为查询后处理
-                record = queryRecord(lessonId, sectionId);
-                if (record == null || BooleanUtils.isTrue(record.getFinished())) {
-                    return;
-                }
-                if (finished) {
-                    // 条件更新，防止并发下重复完成
-                    finished = finishRecord(record, formDTO.getMoment());
-                }
-            }
-        } else if (finished) {
-            // 6.3.更新已有记录为完成，条件更新防止并发重复完成
-            finished = finishRecord(record, formDTO.getMoment());
-        }
-        // 7.处理结果
-        if (finished) {
-            // 7.1.完成学习，更新课表学习进度
-            updateLessonProgress(lesson, sectionId);
-            // 7.2.更新学习计划（按天打卡）
-            planService.handleLearningProgress(lessonId);
-        } else if (record != null) {
-            // 7.3.未完成，仅更新观看进度
-            updateRecordMoment(record, formDTO.getMoment());
-        }
-    }
-
-    @Override
-    public List<LearningRecord> queryRecordsByLessonId(Long lessonId) {
-        return lambdaQuery()
-                .eq(LearningRecord::getLessonId, lessonId)
-                .orderByAsc(LearningRecord::getCreateTime)
-                .list();
-    }
-
-    /**
-     * 根据课表和节id查询学习记录
-     */
-    private LearningRecord queryRecord(Long lessonId, Long sectionId) {
-        return lambdaQuery()
-                .eq(LearningRecord::getLessonId, lessonId)
-                .eq(LearningRecord::getSectionId, sectionId)
-                .one();
-    }
-
-    /**
-     * 判断本次学习是否完成
-     */
-    private boolean isFinished(LearningRecordFormDTO formDTO, LearningRecord record) {
-        Integer sectionType = formDTO.getSectionType();
-        // 1.考试提交即完成
-        if (sectionType != null && SectionType.EXAM.getValue() == sectionType) {
-            return true;
-        }
-        // 2.视频：观看时长达到总时长视为完成
-        Integer duration = formDTO.getDuration();
-        Integer moment = formDTO.getMoment();
-        if (duration != null && moment != null && moment >= duration) {
-            return true;
-        }
-        // 3.进度没有变化，说明拖动进度条了，视为完成
-        return record != null && moment != null && moment.equals(record.getMoment());
-    }
-
-    /**
-     * 将学习记录置为完成，条件更新防止并发下重复完成
-     *
-     * @return 是否由本次请求完成
-     */
-    private boolean finishRecord(LearningRecord record, Integer moment) {
-        return lambdaUpdate()
-                .eq(LearningRecord::getId, record.getId())
-                .eq(LearningRecord::getFinished, false)
-                .set(LearningRecord::getFinished, true)
-                .set(LearningRecord::getFinishTime, LocalDateTime.now())
-                .set(LearningRecord::getMoment, moment)
-                .update();
-    }
-
-    /**
-     * 更新学习记录的观看进度
-     */
-    private void updateRecordMoment(LearningRecord record, Integer moment) {
-        if (moment == null) {
-            return;
-        }
-        lambdaUpdate()
-                .eq(LearningRecord::getId, record.getId())
-                .set(LearningRecord::getMoment, moment)
-                .update();
-    }
-
-    /**
-     * 更新课表学习进度：最近学习信息、已完成小节数、学习状态
-     */
-    private void updateLessonProgress(LearningLesson lesson, Long sectionId) {
-        // 1.更新最近学习信息和已完成小节数
-        lessonService.lambdaUpdate()
-                .eq(LearningLesson::getId, lesson.getId())
-                .setSql("learned_sections = learned_sections + 1")
-                .set(LearningLesson::getLatestSectionId, sectionId)
-                .set(LearningLesson::getLatestLearnTime, LocalDateTime.now())
-                .update();
-        // 2.学习状态从未学习变为学习中
-        lessonService.lambdaUpdate()
-                .eq(LearningLesson::getId, lesson.getId())
-                .eq(LearningLesson::getStatus, LessonStatus.NOT_BEGIN)
-                .set(LearningLesson::getStatus, LessonStatus.LEARNING)
-                .update();
->>>>>>> Stashed changes
     }
 }

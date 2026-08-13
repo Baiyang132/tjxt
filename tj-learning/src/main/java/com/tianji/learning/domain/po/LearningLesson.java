@@ -18,11 +18,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author 虎哥
-<<<<<<< Updated upstream
  * @since 2022-12-02
-=======
- * @since 2022-06-30
->>>>>>> Stashed changes
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -39,11 +35,7 @@ public class LearningLesson implements Serializable {
     private Long id;
 
     /**
-<<<<<<< Updated upstream
      * 学员id
-=======
-     * 学生id
->>>>>>> Stashed changes
      */
     private Long userId;
 
@@ -58,11 +50,7 @@ public class LearningLesson implements Serializable {
     private LessonStatus status;
 
     /**
-<<<<<<< Updated upstream
      * 每周学习频率，每周3天，每天2节，则频率为6
-=======
-     * 学习计划每周学习天数
->>>>>>> Stashed changes
      */
     private Integer weekFreq;
 
@@ -92,11 +80,7 @@ public class LearningLesson implements Serializable {
     private LocalDateTime createTime;
 
     /**
-<<<<<<< Updated upstream
      * 过期时间
-=======
-     * 过期时间，null代表永久有效
->>>>>>> Stashed changes
      */
     private LocalDateTime expireTime;
 
@@ -104,9 +88,6 @@ public class LearningLesson implements Serializable {
      * 更新时间
      */
     private LocalDateTime updateTime;
-<<<<<<< Updated upstream
 
 
-=======
->>>>>>> Stashed changes
 }
