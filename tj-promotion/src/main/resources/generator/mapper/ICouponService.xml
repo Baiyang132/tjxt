@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tianji.promotion.mapper.PromotionMapper">
+
+    <resultMap id="BaseResultMap" type="com.tianji.promotion.domain.po.Promotion">
+            <id property="id" column="id" />
+            <result property="name" column="name" />
+            <result property="type" column="type" />
+            <result property="hot" column="hot" />
+            <result property="beginTime" column="begin_time" />
+            <result property="endTime" column="end_time" />
+            <result property="createTime" column="create_time" />
+            <result property="updateTime" column="update_time" />
+            <result property="creater" column="creater" />
+            <result property="updater" column="updater" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,name,type,hot,begin_time,end_time,
+        create_time,update_time,creater,updater
+    </sql>
+</mapper>
