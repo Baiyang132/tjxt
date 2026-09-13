@@ -1,6 +1,6 @@
 package com.tianji.promotion.domain.vo;
 
-import com.tianji.promotion.enums.DiscountType;
+import com.tianji.promotion.domain.enums.DiscountType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

@@ -3,7 +3,7 @@ package com.tianji.promotion.handler;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tianji.common.utils.CollUtils;
 import com.tianji.promotion.domain.po.Coupon;
-import com.tianji.promotion.enums.CouponStatus;
+import com.tianji.promotion.domain.enums.CouponStatus;
 import com.tianji.promotion.service.ICouponService;
 import com.xxl.job.core.context.XxlJobHelper;
 import com.xxl.job.core.handler.annotation.XxlJob;

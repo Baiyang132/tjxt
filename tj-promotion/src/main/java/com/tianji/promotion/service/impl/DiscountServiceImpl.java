@@ -7,7 +7,7 @@ import com.tianji.common.utils.CollUtils;
 import com.tianji.common.utils.UserContext;
 import com.tianji.promotion.domain.po.Coupon;
 import com.tianji.promotion.domain.po.CouponScope;
-import com.tianji.promotion.enums.UserCouponStatus;
+import com.tianji.promotion.domain.enums.UserCouponStatus;
 import com.tianji.promotion.mapper.UserCouponMapper;
 import com.tianji.promotion.service.ICouponScopeService;
 import com.tianji.promotion.service.IDiscountService;

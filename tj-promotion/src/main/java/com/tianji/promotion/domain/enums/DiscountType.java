@@ -1,4 +1,4 @@
-package com.tianji.promotion.enums;
+package com.tianji.promotion.domain.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -9,21 +9,23 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ObtainType implements BaseEnum {
-    PUBLIC(1, "手动领取"),
-    ISSUE(2, "发放兑换码"),
+public enum DiscountType implements BaseEnum {
+    PER_PRICE_DISCOUNT(1, "每满减"),
+    RATE_DISCOUNT(2, "折扣"),
+    NO_THRESHOLD(3, "无门槛"),
+    PRICE_DISCOUNT(4, "满减"),
     ;
-    @EnumValue
     @JsonValue
+    @EnumValue
     private final int value;
     private final String desc;
 
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static ObtainType of(Integer value) {
+    public static DiscountType of(Integer value) {
         if (value == null) {
             return null;
         }
-        for (ObtainType status : values()) {
+        for (DiscountType status : values()) {
             if (status.value == value) {
                 return status;
             }

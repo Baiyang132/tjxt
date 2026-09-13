@@ -1,4 +1,4 @@
-package com.tianji.promotion.enums;
+package com.tianji.promotion.domain.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -9,21 +9,21 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum UserCouponStatus implements BaseEnum {
-    UNUSED(1, "未使用"),
-    USED(2, "已使用"),
-    EXPIRED(3, "已过期"),
+public enum ExchangeCodeStatus implements BaseEnum {
+    UNUSED(1, "待兑换"),
+    USED(2, "已兑换"),
+    EXPIRED(3, "兑换活动已结束"),
     ;
     @EnumValue
     @JsonValue
     private final int value;
     private final String desc;
     @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
-    public static UserCouponStatus of(Integer value) {
+    public static ExchangeCodeStatus of(Integer value) {
         if (value == null) {
             return null;
         }
-        for (UserCouponStatus status : values()) {
+        for (ExchangeCodeStatus status : values()) {
             if (status.value == value) {
                 return status;
             }
@@ -32,7 +32,7 @@ public enum UserCouponStatus implements BaseEnum {
     }
 
     public static String desc(Integer value) {
-        UserCouponStatus status = of(value);
+        ExchangeCodeStatus status = of(value);
         return status == null ? "" : status.desc;
     }
 }

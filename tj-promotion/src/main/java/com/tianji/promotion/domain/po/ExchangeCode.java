@@ -3,7 +3,7 @@ package com.tianji.promotion.domain.po;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.tianji.promotion.enums.ExchangeCodeStatus;
+import com.tianji.promotion.domain.enums.ExchangeCodeStatus;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

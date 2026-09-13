@@ -3,7 +3,7 @@ package com.tianji.promotion.mapper;
 import com.tianji.promotion.domain.po.Coupon;
 import com.tianji.promotion.domain.po.UserCoupon;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.tianji.promotion.enums.UserCouponStatus;
+import com.tianji.promotion.domain.enums.UserCouponStatus;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.tianji.promotion.strategy.discount;
 
-import com.tianji.promotion.enums.DiscountType;
+import com.tianji.promotion.domain.enums.DiscountType;
 
 import java.util.EnumMap;
 

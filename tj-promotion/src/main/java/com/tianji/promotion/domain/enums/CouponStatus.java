@@ -1,5 +1,8 @@
-package com.tianji.promotion.constants;
+package com.tianji.promotion.domain.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.tianji.common.enums.BaseEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,9 +15,12 @@ public enum CouponStatus implements BaseEnum {
     ISSUING(3, "发放中"),
     FINISHED(4, "发放结束"),
     PAUSE(5, "暂停");
+    @JsonValue
+    @EnumValue
     private final int value;
     private final String desc;
 
+    @JsonCreator(mode = JsonCreator.Mode.DELEGATING)
     public static CouponStatus of(Integer value) {
         if (value == null) {
             return null;

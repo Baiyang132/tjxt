@@ -1,8 +1,8 @@
 package com.tianji.promotion.domain.vo;
 
 import com.tianji.common.utils.DateUtils;
-import com.tianji.promotion.enums.DiscountType;
-import com.tianji.promotion.enums.ObtainType;
+import com.tianji.promotion.domain.enums.DiscountType;
+import com.tianji.promotion.domain.enums.ObtainType;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

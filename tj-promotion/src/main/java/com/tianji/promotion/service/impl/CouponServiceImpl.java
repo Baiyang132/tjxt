@@ -19,9 +19,9 @@ import com.tianji.promotion.domain.vo.CouponDetailVO;
 import com.tianji.promotion.domain.vo.CouponPageVO;
 import com.tianji.promotion.domain.vo.CouponScopeVO;
 import com.tianji.promotion.domain.vo.CouponVO;
-import com.tianji.promotion.enums.CouponStatus;
-import com.tianji.promotion.enums.ObtainType;
-import com.tianji.promotion.enums.UserCouponStatus;
+import com.tianji.promotion.domain.enums.CouponStatus;
+import com.tianji.promotion.domain.enums.ObtainType;
+import com.tianji.promotion.domain.enums.UserCouponStatus;
 import com.tianji.promotion.mapper.CouponMapper;
 import com.tianji.promotion.service.ICouponScopeService;
 import com.tianji.promotion.service.ICouponService;
@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.tianji.promotion.enums.CouponStatus.*;
+import static com.tianji.promotion.domain.enums.CouponStatus.*;
 
 /**
  * <p>
@@ -287,7 +287,7 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon> impleme
     public void beginIssueBatch(List<Coupon> coupons) {
         // 1.更新券状态
         for (Coupon c : coupons) {
-            c.setStatus(CouponStatus.ISSUING);
+            c.setStatus(ISSUING);
         }
         updateBatchById(coupons);
         // 2.批量缓存
