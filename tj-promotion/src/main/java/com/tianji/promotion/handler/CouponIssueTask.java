@@ -39,4 +39,19 @@ public class CouponIssueTask {
         couponService.issueCoupons(needIssueCoupon);
     }
 
+    @XxlJob("endCouponIssueJob")
+    public void endCouponIssueJob(){
+        log.info("正在执行优惠券结束发放任务");
+        List<Coupon> needEndIssueCoupon = couponService.lambdaQuery()
+                .eq(Coupon::getStatus, CouponStatus.ISSUING)
+                .le(Coupon::getIssueEndTime, LocalDateTime.now())
+                .list();
+        if (CollUtils.isEmpty(needEndIssueCoupon)) {
+            log.info("没有需要结束发放的优惠券");
+            return;
+        }
+        log.info("正在结束发放优惠券，数量为{}", needEndIssueCoupon.size());
+        couponService.endIssueCoupons(needEndIssueCoupon);
+    }
+
 }

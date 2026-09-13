@@ -29,4 +29,6 @@ public interface ICouponService extends IService<Coupon> {
     void deleteCouponById(Long id);
 
     void issueCoupons(List<Coupon> needIssueCoupon);
+
+    void endIssueCoupons(List<Coupon> needEndIssueCoupon);
 }

@@ -189,6 +189,15 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
         }
         updateBatchById(needIssueCouponList);
     }
+
+    @Transactional
+    @Override
+    public void endIssueCoupons(List<Coupon> needEndIssueCoupon) {
+        for (Coupon coupon : needEndIssueCoupon) {
+            coupon.setStatus(CouponStatus.UN_ISSUE);
+        }
+        updateBatchById(needEndIssueCoupon);
+    }
 }
 
 
