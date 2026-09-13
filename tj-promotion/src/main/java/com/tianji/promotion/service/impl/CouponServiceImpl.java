@@ -166,7 +166,6 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
 
     @Override
     public void deleteCouponById(Long id) {
-        //1.根据id查询优惠券
         Coupon coupon = getById(id);
         if (coupon == null){
             throw new BadRequestException("优惠券不存在！");
@@ -174,14 +173,21 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
         if (coupon.getStatus() != CouponStatus.DRAFT){
             throw new BizIllegalException("优惠券状态错误！");
         }
-        //2.删除优惠券
         removeById(id);
-        //3.删除优惠券的限定范围
         if (!coupon.getSpecific()) {
-            return;//如果不限定范围，则不需要删除，直接返回
+            return;
         }
 
         scopeService.remove(new QueryWrapper<CouponScope>().eq("coupon_id", id));
+    }
+
+    @Transactional
+    @Override
+    public void issueCoupons(List<Coupon> needIssueCouponList) {
+        for (Coupon coupon : needIssueCouponList) {
+            coupon.setStatus(CouponStatus.ISSUING);
+        }
+        updateBatchById(needIssueCouponList);
     }
 }
 

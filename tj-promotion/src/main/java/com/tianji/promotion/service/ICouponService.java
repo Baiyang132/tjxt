@@ -9,6 +9,7 @@ import com.tianji.promotion.domain.query.CouponQuery;
 import com.tianji.promotion.domain.vo.CouponPageVO;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
 * @author Administrator
@@ -26,4 +27,6 @@ public interface ICouponService extends IService<Coupon> {
     void updateCouponById(Long id, @Valid CouponFormDTO dto);
 
     void deleteCouponById(Long id);
+
+    void issueCoupons(List<Coupon> needIssueCoupon);
 }
