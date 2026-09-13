@@ -42,6 +42,18 @@ public class CouponController{
     public void beginIssue(@RequestBody @Valid CouponIssueFormDTO dto) {
         couponService.beginIssue(dto);
     }
+
+    @ApiOperation("根据id修改优惠券")
+    @PutMapping("/{id}")
+    public void updateCouponById(@PathVariable Long id, @Valid @RequestBody CouponFormDTO dto) {
+        couponService.updateCouponById(id,dto);
+    }
+
+    @ApiOperation("根据id删除优惠券")
+    @DeleteMapping("/{id}")
+    public void deleteCouponById(@PathVariable Long id) {
+        couponService.deleteCouponById(id);
+    }
 }
 
 

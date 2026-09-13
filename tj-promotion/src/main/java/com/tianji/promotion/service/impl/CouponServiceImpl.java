@@ -1,5 +1,6 @@
 package com.tianji.promotion.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tianji.common.domain.dto.PageDTO;
@@ -13,6 +14,7 @@ import com.tianji.promotion.domain.dto.CouponIssueFormDTO;
 import com.tianji.promotion.domain.enums.CouponStatus;
 import com.tianji.promotion.domain.enums.ObtainType;
 import com.tianji.promotion.domain.po.Coupon;
+import com.tianji.promotion.domain.po.CouponScope;
 import com.tianji.promotion.domain.query.CouponQuery;
 import com.tianji.promotion.domain.vo.CouponPageVO;
 import com.tianji.promotion.mapper.CouponMapper;
@@ -25,6 +27,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.tianji.promotion.domain.enums.CouponStatus.*;
 
 /**
 * @author Administrator
@@ -129,7 +134,57 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
             codeService.asyncGenerateCode(coupon);
         }
     }
+
+    @Transactional
+    @Override
+    public void updateCouponById(Long id, CouponFormDTO dto) {
+        if (id == null||!id.equals(dto.getId())){
+            throw new BadRequestException("优惠券id错误！");
+        }
+        Coupon coupon = this.getById(id);
+        if (coupon == null){
+            throw new BadRequestException("优惠券不存在！");
+        }
+        if (coupon.getStatus() != CouponStatus.DRAFT){
+            throw new BizIllegalException("优惠券状态错误！");
+        }
+        Coupon po = BeanUtils.copyBean(dto, Coupon.class);
+        updateById(po);
+        if (coupon.getSpecific()){
+            scopeService.remove(new QueryWrapper<CouponScope>().eq("coupon_id", id));
+        }
+        if (dto.getSpecific()){
+            List<Long> scopes = dto.getScopes();
+            if (CollUtils.isEmpty(scopes)){
+                throw new BadRequestException("请选择优惠券的限定范围！");
+            }
+            List<CouponScope> list = scopes.stream()
+                    .map(bizId->new CouponScope().setCouponId(coupon.getId()).setBizId(bizId).setType(1)).collect(Collectors.toList());
+            scopeService.saveOrUpdateBatch(list);
+        }
+    }
+
+    @Override
+    public void deleteCouponById(Long id) {
+        //1.根据id查询优惠券
+        Coupon coupon = getById(id);
+        if (coupon == null){
+            throw new BadRequestException("优惠券不存在！");
+        }
+        if (coupon.getStatus() != CouponStatus.DRAFT){
+            throw new BizIllegalException("优惠券状态错误！");
+        }
+        //2.删除优惠券
+        removeById(id);
+        //3.删除优惠券的限定范围
+        if (!coupon.getSpecific()) {
+            return;//如果不限定范围，则不需要删除，直接返回
+        }
+
+        scopeService.remove(new QueryWrapper<CouponScope>().eq("coupon_id", id));
+    }
 }
+
 
 
 
