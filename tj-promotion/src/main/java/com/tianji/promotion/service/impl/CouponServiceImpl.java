@@ -4,19 +4,24 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tianji.common.domain.dto.PageDTO;
 import com.tianji.common.exceptions.BadRequestException;
+import com.tianji.common.exceptions.BizIllegalException;
 import com.tianji.common.utils.BeanUtils;
 import com.tianji.common.utils.CollUtils;
+import com.tianji.common.utils.StringUtils;
 import com.tianji.promotion.domain.dto.CouponFormDTO;
+import com.tianji.promotion.domain.dto.CouponIssueFormDTO;
+import com.tianji.promotion.domain.enums.CouponStatus;
 import com.tianji.promotion.domain.po.Coupon;
 import com.tianji.promotion.domain.query.CouponQuery;
 import com.tianji.promotion.domain.vo.CouponPageVO;
+import com.tianji.promotion.mapper.CouponMapper;
 import com.tianji.promotion.service.ICouponScopeService;
 import com.tianji.promotion.service.ICouponService;
-import com.tianji.promotion.mapper.CouponMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import com.tianji.common.utils.StringUtils;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -83,6 +88,29 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
         List<CouponPageVO> list = BeanUtils.copyList(records, CouponPageVO.class);
 
         return PageDTO.of(page, list);
+    }
+
+    @Transactional
+    @Override
+    public void beginIssue(CouponIssueFormDTO dto) {
+        Coupon coupon = getById(dto.getId());
+        if (coupon == null) {
+            throw new BadRequestException("优惠券不存在！");
+        }
+        if(coupon.getStatus() != CouponStatus.DRAFT && coupon.getStatus() != CouponStatus.PAUSE){
+            throw new BizIllegalException("优惠券状态错误！");
+        }
+        LocalDateTime issueBeginTime = dto.getIssueBeginTime();
+        LocalDateTime now = LocalDateTime.now();
+        boolean isBegin = issueBeginTime == null || !issueBeginTime.isAfter(now);
+        Coupon c = BeanUtils.copyBean(dto, Coupon.class);
+        if (isBegin) {
+            c.setStatus(CouponStatus.ISSUING);
+            c.setIssueBeginTime(now);
+        }else{
+            c.setStatus(CouponStatus.UN_ISSUE);
+        }
+        updateById(c);
     }
 }
 
