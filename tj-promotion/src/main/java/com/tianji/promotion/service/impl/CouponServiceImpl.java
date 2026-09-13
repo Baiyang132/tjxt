@@ -198,6 +198,21 @@ public class CouponServiceImpl extends ServiceImpl<CouponMapper, Coupon>
         }
         updateBatchById(needEndIssueCoupon);
     }
+
+    @Override
+    public void pauseIssueCouponById(Long id) {
+        Coupon coupon = getById(id);
+        if (coupon == null){
+            throw new BadRequestException("优惠券不存在！");
+        }
+        if (coupon.getStatus() != CouponStatus.UN_ISSUE && coupon.getStatus() != CouponStatus.ISSUING){
+            throw new BizIllegalException("优惠券状态错误！");
+        }
+        lambdaUpdate().eq(Coupon::getId, id)
+                .set(Coupon::getStatus, CouponStatus.PAUSE)
+                .in(Coupon::getStatus, CouponStatus.UN_ISSUE, CouponStatus.ISSUING)
+                .update();
+    }
 }
 
 
